@@ -1,4 +1,4 @@
-vim.cmd("let g:netrw_liststyle = 3")
+vim.cmd("let g:netrw_liststyle = 0")
 
 local opt = vim.opt
 
@@ -29,7 +29,7 @@ opt.signcolumn = "yes" -- show sign column so that text doesn't shift
 opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
 
 -- clipboard
-opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+-- opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- split windows
 opt.splitright = true -- split vertical window to the right
@@ -37,3 +37,45 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
+
+opt.clipboard = "unnamed,unnamedplus"
+
+-- if vim.fn.has("wsl") == 1 then
+-- 	if vim.fn.executable("wl-copy") == 0 then
+-- 		print("wl-clipboard not found, clipboard integration won't work")
+-- 	else
+-- 		vim.g.clipboard = {
+-- 			name = "wl-clipboard (wsl)",
+-- 			copy = {
+-- 				["+"] = "wl-copy --foreground --type text/plain",
+-- 				["*"] = "wl-copy --foreground --primary --type text/plain",
+-- 			},
+-- 			paste = {
+-- 				["+"] = function()
+-- 					return vim.fn.systemlist('wl-paste --no-newline|sed -e "s/\r$//"', { "" }, 1) -- '1' keeps empty lines
+-- 				end,
+-- 				["*"] = function()
+-- 					return vim.fn.systemlist('wl-paste --primary --no-newline|sed -e "s/\r$//"', { "" }, 1)
+-- 				end,
+-- 			},
+-- 			cache_enabled = true,
+-- 		}
+-- 	end
+-- end
+
+-- curl -sLo/tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.1.1/win32yank-x64.zip
+-- unzip -p /tmp/win32yank.zip win32yank.exe > /tmp/win32yank.exe
+-- chmod +x /tmp/win32yank.exe
+-- sudo mv /tmp/win32yank.exe /usr/local/bin/
+vim.g.clipboard = {
+	name = "win32yank-wsl",
+	copy = {
+		["+"] = "win32yank.exe -i --crlf",
+		["*"] = "win32yank.exe -i --crlf",
+	},
+	paste = {
+		["+"] = "win32yank.exe -o --lf",
+		["*"] = "win32yank.exe -o --lf",
+	},
+	cache_enabled = true,
+}

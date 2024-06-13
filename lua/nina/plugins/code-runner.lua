@@ -17,7 +17,7 @@ return {
 			},
 		})
 		local keymap = vim.keymap
-		keymap.set("n", "<C-R>", ":RunCode<CR>", { noremap = true, silent = false }, { desc = "RunCode" })
+		keymap.set("n", "<leader>re", ":RunCode<CR>", { noremap = true, silent = false }, { desc = "RunCode" })
 		keymap.set("n", "<leader>rf", ":RunFile<CR>", { noremap = true, silent = false }, { desc = "RunFile" })
 		keymap.set("n", "<leader>rft", ":RunFile tab<CR>", { noremap = true, silent = false }, { desc = "RunFile tab" })
 		keymap.set("n", "<leader>rp", ":RunProject<CR>", { noremap = true, silent = false }, { desc = "RunProject" })
